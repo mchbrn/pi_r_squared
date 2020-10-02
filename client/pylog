@@ -1,0 +1,21 @@
+PiRSquared - todo, news, goodreads, weather.
+
+Setup socket interface
+Build db
+Write user input control
+Allow for recurring todos
+Get current day's todo
+
+Script sets rpi static IP so that client never has to change socket. Server starts on boot of rpi. On install on client user is prompted to enter rpi's IP - This is stored and port is hardcoded which all together makes for successful connection every time. And add both programs to file so they can be run like this: prs add ...
+
+Pi R-Squared arguments must be in one of the following forms
+Arguments in [] are optional
+
+add yyyy-mm-dd 'activity' [recurring] 
+get yyyy-mm-dd
+update id [yyyy-mm-dd/'new activity'/recurring] 
+remove id
+
+Recurring options include: daily/weekly/bimonthly/monthly/biyearly/yearly
+
+install.sh will run database scripts, add server to startup applications and run server for first time. On client side, install.sh will prompt user for Pi R-Squared's IP address (port is hardcoded) and add script to $PATH so that 'prs' can be called from terminal.

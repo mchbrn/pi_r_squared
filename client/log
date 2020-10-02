@@ -1,0 +1,34 @@
+Install HyperPixel drivers
+	sudo curl -sSL https://get.pimoroni.com/hyperpixel4 | bash
+
+Install Lua5.3
+	# apt install lua5.3
+
+Install luarocks
+	# apt install luarocks
+
+Install MariaDB
+	# apt install mariadb-server
+
+Change root password for mariadb
+	# mysql-secure-installation
+
+Install Lua-cURL
+	# apt install lua-curl
+	(could not install with luarock)
+
+Install luasocket
+	# luarocks install luasocket
+
+NEED TO DO
+
+Get Pi a static IP address because the client is going to connect to the server on the same socket everytime: 100.73.120.x, 39359
+Create user input checks on client side
+Finish database cases in query.lua
+Build UI
+Get bank data
+Get goodreads data
+Get weather data
+
+UI
+Four square buttons on bottom of app; todo, monzo, goodreads, quit (alt replace goodreads with weather)
