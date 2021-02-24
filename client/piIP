@@ -1,0 +1,24 @@
+100.73.121.18
+
+Raspberry Pi can query database and show current day's todo so far.
+
+What is next?
+
+Create socket interface so that I can send data from CLI to lua on the raspberry pi
+How to run python code required to use the inky screen - they are both scripts so
+can automate it in bash
+
+Use - Send data to pi
+    - Data is received and db is altered
+    - Update message is also sent and screen refresh is triggered
+
+syntax: new date task complete
+	update date number task/complete
+	remove date number
+
+Further stuff to maybe do
+	- Reminders: screen refreshed to reminder page an hour before event, button
+	  to dismis and return to todo
+	- Some other update: Could do some regular event updates like at 17:00 on
+	  a sunday the football scores are printed to screen or anything like that
+	- Essentially some button interface could callback to the currennt todo list 
