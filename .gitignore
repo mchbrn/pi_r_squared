@@ -3,8 +3,8 @@ client/.log.swp
 client/piIP
 client/log
 client/pylog
-client/guide/guid.aux
-client/guide/guid.log
-client/guide/guid.out
-client/guide/guid.tex
-client/guide/guid.toc
+guide/guid.aux
+guide/guid.log
+guide/guid.out
+guide/guid.tex
+guide/guid.toc
