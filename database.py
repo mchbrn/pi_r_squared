@@ -1,3 +1,4 @@
+import pandas as pd
 import sqlite3
 from sqlite3 import Error
 
@@ -17,7 +18,8 @@ def create_table():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date DATE,
                 activity VARCHAR(30),
-                recurrence VARCHAR(10)
+                recurrence VARCHAR(10),
+                completed INTEGER(1)
             );"""
 
     conn = create_connection()
@@ -41,7 +43,7 @@ def create_query(sql):
 
 def get(sql):
     conn = create_connection()
-    print(type(sql))
+
     if conn is not None:
         try:
             cursor = conn.cursor()
