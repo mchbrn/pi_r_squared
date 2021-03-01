@@ -20,7 +20,6 @@ def getTodo():
 
     ttk.Label(content, text="To Do List").grid(column=0, row=0)
 
-    """Get activities for today's date, if none are set then return message to user"""
     today_activities = "SELECT activity FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
     today_IDs = "SELECT id FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
     today_completed = "SELECT completed FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
@@ -69,13 +68,24 @@ def updateCompleted(ID):
 def getNews():
     destroyChildren()
 
+    ttk.Label(content, text="News").grid(column=0, row=0)
+
     todays_news = news.get()
 
     for index, item in enumerate(todays_news):
-        ttk.Label(content, text=item).grid(column=0, row=index)
+        ttk.Label(content, text=item).grid(column=0, row=index + 1)
 
 def getWeather():
     destroyChildren()
+    
+    ttk.Label(content, text="Liverpool").grid(column=0, row=0)
+
+    todays_weather = weather.get()
+
+    for index, data in enumerate(todays_weather):
+        ttk.Label(content, text=data).grid(column=0, row=index + 1)
+
+    ttk.Label(content, image=img_todays_weather).grid(column=1, row=1)
 
 def getGoodreads():
     destroyChildren()
@@ -100,10 +110,11 @@ img_weather = PhotoImage(file="icons/weather.png")
 img_goodreads = PhotoImage(file="icons/goodreads.png")
 img_checked = PhotoImage(file="icons/checked.png")
 img_unchecked = PhotoImage(file="icons/unchecked.png")
+img_todays_weather = PhotoImage(file="icons/todays_weather.png")
 
 button_todo = ttk.Button(buttons, command=getTodo, image=img_todo).grid(column=0, row=0, sticky=(N, W, S))
 ttk.Button(buttons, command=getNews, image=img_news).grid(column=1, row=0, sticky=(N, S))
-ttk.Button(buttons, image=img_weather).grid(column=2, row=0, sticky=(N, S))
+ttk.Button(buttons, command=getWeather, image=img_weather).grid(column=2, row=0, sticky=(N, S))
 ttk.Button(buttons, image=img_goodreads).grid(column=3, row=0, sticky=(N, E, S))
 
 for child in buttons.winfo_children():
