@@ -10,6 +10,7 @@ import PIL.Image
 import database
 import news
 import weather
+import goodreads
 
 def destroyChildren():
     for child in content.winfo_children():
@@ -73,7 +74,7 @@ def getNews():
     todays_news = news.get()
 
     for index, item in enumerate(todays_news):
-        ttk.Label(content, text=item).grid(column=0, row=index + 1)
+        ttk.Label(content, text=item).grid(column=0, row=index+1)
 
 def getWeather():
     destroyChildren()
@@ -83,12 +84,21 @@ def getWeather():
     todays_weather = weather.get()
 
     for index, data in enumerate(todays_weather):
-        ttk.Label(content, text=data).grid(column=0, row=index + 1)
+        ttk.Label(content, text=data).grid(column=0, row=index+1)
 
     ttk.Label(content, image=img_todays_weather).grid(column=1, row=1)
 
 def getGoodreads():
     destroyChildren()
+
+    data = goodreads.get()
+
+    ttk.Label(content, text="Goodreads").grid(column=0, row=0)
+    ttk.Label(content, text=data[0]).grid(column=0, row=1)
+    ttk.Label(content, text="Recently read").grid(column=0, row=2)
+    
+    for i in range(1, 6):
+        ttk.Label(content, text=data[i]).grid(column=0, row=i+2)
 
 root = Tk()
 root.title("Pi R-Squared")
@@ -115,7 +125,7 @@ img_todays_weather = PhotoImage(file="icons/todays_weather.png")
 button_todo = ttk.Button(buttons, command=getTodo, image=img_todo).grid(column=0, row=0, sticky=(N, W, S))
 ttk.Button(buttons, command=getNews, image=img_news).grid(column=1, row=0, sticky=(N, S))
 ttk.Button(buttons, command=getWeather, image=img_weather).grid(column=2, row=0, sticky=(N, S))
-ttk.Button(buttons, image=img_goodreads).grid(column=3, row=0, sticky=(N, E, S))
+ttk.Button(buttons, command=getGoodreads, image=img_goodreads).grid(column=3, row=0, sticky=(N, E, S))
 
 for child in buttons.winfo_children():
     child.grid_configure(padx=50, pady=20)
