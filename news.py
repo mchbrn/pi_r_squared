@@ -1,7 +1,7 @@
 import json
 import requests
 
-def getNews():
+def get():
     articles = 7
 
     # Get most recent top headlines from BBC News
@@ -9,5 +9,9 @@ def getNews():
 
     data = json.loads(news.text)
 
+    todays_news = []
+
     for x in range(0, articles):
-        print(data['articles'][x]['title'])
+        todays_news.append(data['articles'][x]['title'])
+
+    return todays_news

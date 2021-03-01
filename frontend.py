@@ -11,7 +11,13 @@ import database
 import news
 import weather
 
+def destroyChildren():
+    for child in content.winfo_children():
+        child.destroy()
+
 def getTodo():
+    destroyChildren()
+
     ttk.Label(content, text="To Do List").grid(column=0, row=0)
 
     """Get activities for today's date, if none are set then return message to user"""
@@ -61,13 +67,18 @@ def updateCompleted(ID):
     database.query(conn, sql)
 
 def getNews():
-    pass
+    destroyChildren()
+
+    todays_news = news.get()
+
+    for index, item in enumerate(todays_news):
+        ttk.Label(content, text=item).grid(column=0, row=index)
 
 def getWeather():
-    pass
+    destroyChildren()
 
 def getGoodreads():
-    pass
+    destroyChildren()
 
 root = Tk()
 root.title("Pi R-Squared")
@@ -91,7 +102,7 @@ img_checked = PhotoImage(file="icons/checked.png")
 img_unchecked = PhotoImage(file="icons/unchecked.png")
 
 button_todo = ttk.Button(buttons, command=getTodo, image=img_todo).grid(column=0, row=0, sticky=(N, W, S))
-ttk.Button(buttons, image=img_news).grid(column=1, row=0, sticky=(N, S))
+ttk.Button(buttons, command=getNews, image=img_news).grid(column=1, row=0, sticky=(N, S))
 ttk.Button(buttons, image=img_weather).grid(column=2, row=0, sticky=(N, S))
 ttk.Button(buttons, image=img_goodreads).grid(column=3, row=0, sticky=(N, E, S))
 
