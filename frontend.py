@@ -12,6 +12,8 @@ import news
 import weather
 
 def getTodo():
+    ttk.Label(content, text="To Do List").grid(column=0, row=0)
+
     """Get activities for today's date, if none are set then return message to user"""
     today_activities = "SELECT activity FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
     today_IDs = "SELECT id FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
@@ -24,16 +26,14 @@ def getTodo():
     number_of_todos = len(activities)
 
     for i in range(number_of_todos):
-        ttk.Label(content, text=activities[i]).grid(column=0, row=i)
+        ttk.Label(content, text=activities[i]).grid(column=0, row=i+1)
 
         if (completed[i] == (0,)):
-            print("Draw uncompleted")
             control = 0
-            Checkbutton(content, command=partial(updateCompleted, IDs[i]), image=unchecked, selectimage=checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i)
+            Checkbutton(content, command=partial(updateCompleted, IDs[i]), image=img_unchecked, selectimage=img_checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i+1)
         else:
-            print("Draw completed")
             control = 1
-            Checkbutton(content, command=partial(updateCompleted, IDs[i]), image=checked, selectimage=unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i)
+            Checkbutton(content, command=partial(updateCompleted, IDs[i]), image=img_checked, selectimage=img_unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i+1)
  
 def updateCompleted(ID):
     conn = None
@@ -60,6 +60,15 @@ def updateCompleted(ID):
 
     database.query(conn, sql)
 
+def getNews():
+    pass
+
+def getWeather():
+    pass
+
+def getGoodreads():
+    pass
+
 root = Tk()
 root.title("Pi R-Squared")
 
@@ -74,17 +83,21 @@ content.grid(column=0, row=0, sticky=(N, W, E))
 buttons = ttk.Frame(mainframe, height="200", width="720")
 buttons.grid(column=0, row=1, sticky=(W, E, S))
 
-ttk.Button(buttons, text="A", command=getTodo).grid(column=0, row=0, sticky=(N, W, S))
-ttk.Button(buttons, text="B").grid(column=1, row=0, sticky=(N, S))
-ttk.Button(buttons, text="C").grid(column=2, row=0, sticky=(N, S))
-ttk.Button(buttons, text="D").grid(column=3, row=0, sticky=(N, E, S))
-todolist = StringVar()
-ttk.Label(mainframe, textvariable=todolist)
+img_todo = PhotoImage(file="icons/todo.png")
+img_news = PhotoImage(file="icons/news.png")
+img_weather = PhotoImage(file="icons/weather.png")
+img_goodreads = PhotoImage(file="icons/goodreads.png")
+img_checked = PhotoImage(file="icons/checked.png")
+img_unchecked = PhotoImage(file="icons/unchecked.png")
 
-checked = PhotoImage(file="icons/checked.png")
-unchecked = PhotoImage(file="icons/unchecked.png")
+button_todo = ttk.Button(buttons, command=getTodo, image=img_todo).grid(column=0, row=0, sticky=(N, W, S))
+ttk.Button(buttons, image=img_news).grid(column=1, row=0, sticky=(N, S))
+ttk.Button(buttons, image=img_weather).grid(column=2, row=0, sticky=(N, S))
+ttk.Button(buttons, image=img_goodreads).grid(column=3, row=0, sticky=(N, E, S))
 
 for child in buttons.winfo_children():
     child.grid_configure(padx=50, pady=20)
+
+getTodo()
 
 root.mainloop()
