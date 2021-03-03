@@ -2,7 +2,7 @@ import json
 import requests
 
 def get():
-    articles = 7
+    articles = 6
 
     # Get most recent top headlines from BBC News
     news = requests.get("http://newsapi.org/v2/top-headlines?", params={"sources": "bbc-news", "sortBy": "publishedAt", "pageSize": articles, "apiKey": "fdb4afeed23d42219491564bb280c362"})
