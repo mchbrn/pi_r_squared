@@ -18,7 +18,7 @@ def destroyChildren():
 def getTodo():
     destroyChildren()
 
-    ttk.Label(content, text="To Do List").grid(column=0, row=0)
+    ttk.Label(content, font="helvetica 44", text="To Do List").grid(column=0, row=0)
 
     today_activities = "SELECT activity FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
     today_IDs = "SELECT id FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
@@ -39,7 +39,7 @@ def getTodo():
         my_activities.append(my_activity)
 
     for i in range(number_of_todos):
-        ttk.Label(content, text=my_activities[i]).grid(column=0, row=i+1)
+        ttk.Label(content, font="helvetiva 20", text=my_activities[i]).grid(column=0, row=i+1)
 
         if (completed[i] == (0,)):
             control = 0
@@ -76,35 +76,37 @@ def updateCompleted(ID):
 def getNews():
     destroyChildren()
 
-    ttk.Label(content, text="News").grid(column=0, row=0)
+    ttk.Label(content, font="helvetiva 44", text="News").grid(column=0, row=0)
 
     todays_news = news.get()
 
     for index, item in enumerate(todays_news):
-        ttk.Label(content, text=item).grid(column=0, row=index+1, sticky=(W,))
+        ttk.Label(content, font="helvetiva 20", padding=(0,0,0,10), text="• " + item).grid(column=0, row=index+1, sticky=(W,))
 
 def getWeather():
     destroyChildren()
     
-    ttk.Label(content, text="Liverpool").grid(column=0, row=0, rowspan=1)
+    ttk.Label(content, font="helvetica 44", text="Liverpool").grid(column=0, row=0, rowspan=1)
 
     todays_weather = weather.get()
 
     for index, data in enumerate(todays_weather):
-        ttk.Label(content, text=data).grid(column=0, row=index+1, sticky=(W,))
+        ttk.Label(content, font="helvetica 20", text=data).grid(column=0, row=index+1, sticky=(W,))
 
     ttk.Label(content, image=img_todays_weather).grid(column=1, row=1, columnspan=3)
 
 def getGoodreads():
     destroyChildren()
 
+    ttk.Label(content, font="helvetica 44", text="Goodreads").grid(column=0, row=0)
+
     data = goodreads.get()
 
-    ttk.Label(content, text=data[0]).grid(column=0, row=1)
-    ttk.Label(content, text="Recently read").grid(column=0, row=2)
+    ttk.Label(content, font="helvetica 20", padding=(0,0,0,20), text=data[0]).grid(column=0, row=1)
+    ttk.Label(content, font="helvetiva 30" ,text="Recently read").grid(column=0, row=2)
     
     for i in range(1, 6):
-        ttk.Label(content, text=data[i]).grid(column=0, row=i+2, sticky=(W,))
+        ttk.Label(content, font="helvetica 20", text=data[i]).grid(column=0, row=i+2, sticky=(W,))
 
 root = Tk()
 root.title("Pi R-Squared")
