@@ -130,7 +130,7 @@ def getGoodreads():
         if (i < 6):
             ttk.Label(content, font="helvetica 18", text="• " + data[i]).grid(column=0, row=i+2, sticky=(W,))
         else:
-            ttk.Label(content, font="helvetica 18", padding=(0,0,0,30), text="• " + data[i]).grid(column=0, row=i+2, sticky=(W,))
+            ttk.Label(content, font="helvetica 18", padding=(0,0,0,300), text="• " + data[i]).grid(column=0, row=i+2, sticky=(W,))
 
 
 
