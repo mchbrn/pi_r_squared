@@ -135,7 +135,7 @@ ttk.Button(buttons, command=getWeather, image=img_weather).grid(column=2, row=0,
 ttk.Button(buttons, command=getGoodreads, image=img_goodreads).grid(column=3, row=0, sticky=(N, E, S))
 
 for child in buttons.winfo_children():
-    child.grid_configure(padx=30, pady=30)
+    child.grid_configure(padx=39, pady=39)
 
 getTodo()
 
