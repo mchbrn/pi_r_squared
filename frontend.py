@@ -135,6 +135,7 @@ def getGoodreads():
 
 
 root = Tk()
+root.attributes('-zoomed',True)
 root.title("Pi R-Squared")
 
 mainframe = ttk.Frame(root, height="720", width="720")
