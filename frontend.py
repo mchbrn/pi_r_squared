@@ -20,8 +20,7 @@ def destroyChildren():
 def padButtons(padding_value):
     for child in mainframe.winfo_children():
         if (type(child) == ttk.Button):
-            child.grid_configure(padx=30, pady=(padding_value,30))
-
+            child.grid_configure(pady=(padding_value,30))
 
 def getTodo():
     destroyChildren()
@@ -162,12 +161,6 @@ mainframe = ttk.Frame(root, height="720", width="720")
 mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
-
-#content = ttk.Frame(mainframe, height=520, padding=(50,25,50,25), width=720)
-#content.grid(column=0, row=0, sticky=(N, W, E))
-
-#buttons = ttk.Frame(mainframe, padding=(0,0,0,5), height=500, width=720)
-#buttons.grid(column=0, row=1, sticky=(W, E, S))
 
 img_todo = PhotoImage(file="icons/todo_90.png")
 img_news = PhotoImage(file="icons/news_90.png")
