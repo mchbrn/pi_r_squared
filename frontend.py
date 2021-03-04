@@ -18,7 +18,11 @@ def destroyChildren():
 def getTodo():
     destroyChildren()
 
-    ttk.Label(content, font="helvetica 40", text="To Do List").grid(column=0, row=0)
+    frame_title = ttk.Frame(content, height=40, width=720).grid(column=0, columnspan=1, row=0, sticky=(N,E,W))
+    frame_item = ttk.Frame(content, height=220, width=650).grid(column=0, row=1, sticky=(N,W,S))
+    frame_check = ttk.Frame(content, height=220, width=70).grid(column=1, row=1, sticky=(N,E,S))
+
+    ttk.Label(frame_title, font="helvetica 40", text="To Do List").grid(column=0, row=0)
 
     today_activities = "SELECT activity FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
     today_IDs = "SELECT id FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
@@ -39,14 +43,14 @@ def getTodo():
         my_activities.append(my_activity)
 
     for i in range(number_of_todos):
-        ttk.Label(content, font="helvetiva 18", text=my_activities[i]).grid(column=0, row=i+1, sticky=(W,))
+        ttk.Label(frame_item, font="helvetiva 18", text=my_activities[i]).grid(column=0, row=i+1, sticky=(W,))
 
         if (completed[i] == (0,)):
             control = 0
-            Checkbutton(content, command=partial(updateCompleted, IDs[i]), image=img_unchecked, selectimage=img_checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i+1, sticky=(E,))
+            Checkbutton(frame_check, command=partial(updateCompleted, IDs[i]), image=img_unchecked, selectimage=img_checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i+1, sticky=(E,))
         else:
             control = 1
-            Checkbutton(content, command=partial(updateCompleted, IDs[i]), image=img_checked, selectimage=img_unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i+1, sticky=(E,))
+            Checkbutton(frame_check, command=partial(updateCompleted, IDs[i]), image=img_checked, selectimage=img_unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=1, row=i+1, sticky=(E,))
  
 def updateCompleted(ID):
     conn = None
@@ -130,11 +134,10 @@ def getGoodreads():
         if (i < 6):
             ttk.Label(content, font="helvetica 18", text="• " + data[i]).grid(column=0, row=i+2, sticky=(W,))
         else:
-            ttk.Label(content, font="helvetica 18", padding=(0,0,0,300), text="• " + data[i]).grid(column=0, row=i+2, sticky=(W,))
-
-
+            ttk.Label(content, font="helvetica 18", text="• " + data[i]).grid(column=0, row=i+2, sticky=(W,))
 
 root = Tk()
+# Make interface fullscreen
 root.attributes('-zoomed',True)
 root.title("Pi R-Squared")
 
@@ -146,7 +149,7 @@ root.rowconfigure(0, weight=1)
 content = ttk.Frame(mainframe, height=520, padding=(50,25,50,25), width=720)
 content.grid(column=0, row=0, sticky=(N, W, E))
 
-buttons = ttk.Frame(mainframe, padding=(0,0,0,5), height=200, width=720)
+buttons = ttk.Frame(mainframe, padding=(0,0,0,5), height=500, width=720)
 buttons.grid(column=0, row=1, sticky=(W, E, S))
 
 img_todo = PhotoImage(file="icons/todo_90.png")
@@ -166,6 +169,6 @@ ttk.Button(buttons, command=getGoodreads, image=img_goodreads).grid(column=3, ro
 for child in buttons.winfo_children():
     child.grid_configure(padx=39, pady=19)
 
-getTodo()
+#getTodo()
 
 root.mainloop()
