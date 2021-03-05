@@ -25,7 +25,7 @@ def padButtons(padding_value):
 def getTodo():
     destroyChildren()
 
-    ttk.Label(mainframe, font="helvetica 40", justify="center", text="To Do List").grid(column=1, columnspan=2, row=0)
+    ttk.Label(mainframe, font="helvetica 40", justify="center", padding=(0,20,0,0), text="To Do List").grid(column=1, columnspan=2, row=0)
 
     today_activities = "SELECT activity FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
     today_IDs = "SELECT id FROM todo WHERE date='" + datetime.today().strftime("%Y-%m-%d") + "';"
@@ -37,14 +37,17 @@ def getTodo():
 
     number_of_todos = len(activities)
 
-    my_activities = []
-    padding_values = [380, 320, 260, 200, 140, 80, 20]
+    if (number_of_todos > 0):
+        my_activities = []
+        padding_values = [405, 328, 251, 175, 100, 23, 0]
 
-    for activity in activities:
-        my_activity = str(activity)
-        my_activity = my_activity[2:]
-        my_activity = my_activity[:-3]
-        my_activities.append(my_activity)
+        for activity in activities:
+            my_activity = str(activity)
+            my_activity = my_activity[2:]
+            my_activity = my_activity[:-3]
+            my_activities.append(my_activity)
+    else:
+        padButtons(480)
 
     for i in range(number_of_todos):
         ttk.Label(mainframe, font="helvetiva 18", padding=(25,0,0,0), text=my_activities[i]).grid(column=0, columnspan=2, row=i+1, sticky=(W,))
@@ -53,19 +56,19 @@ def getTodo():
             # Add padding below final todo item
             if (i+1 == number_of_todos):
                 control = 0
-                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_unchecked, selectimage=img_checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1, sticky=(E,))
-                padButtons(200)
+                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_unchecked, selectimage=img_checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1)
+                padButtons(padding_values[i])
             else:
                 control = 0
-                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_unchecked, selectimage=img_checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1, sticky=(E,))
+                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_unchecked, selectimage=img_checked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1)
         else:
             if (i+1 == number_of_todos):
                 control = 1
-                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_checked, selectimage=img_unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1, sticky=(E,))
-                padButtons(padding_values[i+1])
+                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_checked, selectimage=img_unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1)
+                padButtons(padding_values[i])
             else:
                 control = 1
-                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_checked, selectimage=img_unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1, sticky=(E,))
+                Checkbutton(mainframe, command=partial(updateCompleted, IDs[i]), image=img_checked, selectimage=img_unchecked, indicatoron=False, onvalue=1, offvalue=0).grid(column=3, row=i+1)
  
 def updateCompleted(ID):
     conn = None
@@ -108,7 +111,7 @@ def getNews():
             word_formatted = ""
             character_counter += len(word)
 
-            if (character_counter >= 30):
+            if (character_counter >= 38):
                 if (index_word + 1 != len(words)):
                     word_formatted = word + "\n" + " "
                     character_counter = 0
@@ -121,12 +124,12 @@ def getNews():
 
         ttk.Label(mainframe, font="helvetiva 18", justify="left", padding=(25,0,0,10), text="• " + item_formatted).grid(column=0, columnspan=4, row=index_item+1, sticky=(W,))
 
-        padButtons(35)
+        padButtons(65)
 
 def getWeather():
     destroyChildren()
     
-    ttk.Label(mainframe, font="helvetica 40", justify="center", padding=(0,0,0,140), text="Liverpool").grid(column=1, columnspan=2, row=0)
+    ttk.Label(mainframe, font="helvetica 40", justify="center", padding=(0,20,0,180), text="Liverpool").grid(column=1, columnspan=2, row=0)
 
     ttk.Label(mainframe, image=img_todays_weather, padding=(0,0,0,140)).grid(column=3, row=0)
 
@@ -135,12 +138,12 @@ def getWeather():
     for index, data in enumerate(todays_weather):
         ttk.Label(mainframe, font="helvetica 18", justify="center", text=data).grid(column=1, row=index+1, columnspan=2)
 
-    padButtons(140)
+    padButtons(180)
 
 def getGoodreads():
     destroyChildren()
 
-    ttk.Label(mainframe, font="helvetica 40", justify="center", text="Goodreads").grid(column=0, columnspan=4, row=0)
+    ttk.Label(mainframe, font="helvetica 40", justify="center", padding=(0,20,0,20), text="Goodreads").grid(column=0, columnspan=4, row=0)
 
     data = goodreads.get()
 
@@ -150,7 +153,7 @@ def getGoodreads():
     for i in range(1, 6):
         ttk.Label(mainframe, font="helvetica 18", justify="left", padding=(25,0,0,0), text="• " + data[i]).grid(column=0, columnspan=4, row=i+2, sticky=(W,))
 
-    padButtons(164)
+    padButtons(216)
 
 root = Tk()
 # Make interface fullscreen
@@ -177,7 +180,7 @@ button_weather = ttk.Button(mainframe, command=getWeather, image=img_weather).gr
 button_goodreads = ttk.Button(mainframe, command=getGoodreads, image=img_goodreads).grid(column=3, row=9, sticky=(N, S))
 
 for child in mainframe.winfo_children():
-    child.grid_configure(padx=30, pady=30)
+    child.grid_configure(padx=39)
 
 getTodo()
 
