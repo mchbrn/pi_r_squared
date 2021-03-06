@@ -80,7 +80,7 @@ def updateCompleted(ID):
         print(e)
 
     ID = str(ID)
-    ID = ID[1:2]
+    ID = ID[1:-2]
 
     sql = "SELECT completed FROM todo WHERE id = '" + ID + "';"
     control = database.get(sql)
@@ -100,7 +100,7 @@ def getNews():
 
     ttk.Label(mainframe, font="helvetiva 40", justify="center", padding=(0,20,0,20), text="News").grid(column=1, columnspan=2, row=0)
     # Values for if there is 6, 7, 8, 9, 10, 11 or 12 lines of news
-    padding_values = [None, None, None, None, None, None, 185, 165, 145, 125, 105, 85, 65]
+    padding_values = [None, None, None, None, None, None, 209, 181, 153, 125, 97, 69, 41]
     line_counter = 0
 
     todays_news = news.get()
@@ -130,7 +130,6 @@ def getNews():
 
         ttk.Label(mainframe, font="helvetiva 18", justify="left", padding=(25,0,0,10), text="• " + item_formatted).grid(column=0, columnspan=4, row=index_item+1, sticky=(W,))
 
-    print(line_counter)
     padButtons(padding_values[line_counter])
 
 def getWeather():
