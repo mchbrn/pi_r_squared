@@ -99,6 +99,8 @@ def getNews():
     destroyChildren()
 
     ttk.Label(mainframe, font="helvetiva 40", justify="center", padding=(0,20,0,20), text="News").grid(column=1, columnspan=2, row=0)
+    # Values for if there is 6, 7, 8, 9, 10, 11 or 12 lines of news
+    padding_values = [None, None, None, None, None, None, 95, 90, 85, 80, 75, 70, 65]
 
     todays_news = news.get()
 
@@ -106,6 +108,9 @@ def getNews():
         item_formatted = ""
         words = item.split()
         character_counter = 0
+        line_counter = 0
+
+        line_counter += 1
 
         for index_word, word in enumerate(words):
             word_formatted = ""
@@ -114,6 +119,7 @@ def getNews():
             if (character_counter >= 38):
                 if (index_word + 1 != len(words)):
                     word_formatted = word + "\n" + " "
+                    line_counter += 1
                     character_counter = 0
                 else:
                     word_formatted = word + " "
@@ -124,7 +130,7 @@ def getNews():
 
         ttk.Label(mainframe, font="helvetiva 18", justify="left", padding=(25,0,0,10), text="• " + item_formatted).grid(column=0, columnspan=4, row=index_item+1, sticky=(W,))
 
-        padButtons(65)
+        padButtons(padding_values[line_counter])
 
 def getWeather():
     destroyChildren()

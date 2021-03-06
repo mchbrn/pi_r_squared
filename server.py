@@ -5,7 +5,7 @@ import query
 import datetime
 import socket
 
-TCP_IP = '172.16.0.208'
+TCP_IP = '192.168.0.37'
 TCP_PORT = 5005
 BUFFER_SIZE = 1024 
 
