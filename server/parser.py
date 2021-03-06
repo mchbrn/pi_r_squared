@@ -29,11 +29,44 @@ remove = args.remove
 #args_update = args.update_args
 #args_remove = args.remove_args
 
-if args.add:
-    print(args.add)
-if args.show:
-    print(args.show)
-if args.update:
-    print(args.update)
-if args.remove:
+if add:
+    if (add[0] == "yesterday"):
+        if (add[2] == "complete"):
+            pass
+        elif (add[2] == "incomplete"):
+            pass
+    elif (add[0] == "today"):
+        if (add[2] == "complete"):
+            pass
+        elif (add[2] == "incomplete"):
+            pass
+    elif (add[0] == "tomorrow"):
+        if (add[2] == "complete"):
+            pass
+        elif (add[2] == "incomplete"):
+            pass
+if show:
+    if (show[0] == "yesterday"):
+        pass
+    elif (show[0] == "yesterday"):
+        pass
+    elif (show[0] == "yesterday"):
+        pass
+if update:
+    if (update[1] == "yesterday"):
+        if (update[3] == "complete"):
+            pass
+        elif (update[3] == "incomplete"):
+            pass
+    elif (update[1] == "today"):
+        if (update[3] == "complete"):
+            pass
+        elif (update[3] == "incomplete"):
+            pass
+    elif (update[1] == "tomorrow"):
+        if (update[3] == "complete"):
+            pass
+        elif (update[3] == "incomplete"):
+            pass
+if remove:
     print(args.remove)
