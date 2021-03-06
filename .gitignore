@@ -1,9 +1,6 @@
-test.py
-__pycache__/
+server/test.py
+server/__pycache__/
 client/.log.swp
-client/piIP
-client/log
-client/pylog
 guide/guide.aux
 guide/guide.log
 guide/guide.out
