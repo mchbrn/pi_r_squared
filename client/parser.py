@@ -1,4 +1,5 @@
 import argparse
+import client
 
 parser = argparse.ArgumentParser(description="add, show, update and remove items on your todo list")
 
@@ -20,43 +21,40 @@ update = args.update
 remove = args.remove
 
 if add:
-    if (add[0] == "yesterday"):
-        if (add[2] == "complete"):
-            pass
-        elif (add[2] == "incomplete"):
-            pass
-    elif (add[0] == "today"):
-        if (add[2] == "complete"):
-            pass
-        elif (add[2] == "incomplete"):
-            pass
-    elif (add[0] == "tomorrow"):
-        if (add[2] == "complete"):
-            pass
-        elif (add[2] == "incomplete"):
-            pass
+    data = []
+    data.append("add")
+
+    for arg in add:
+        data.append(arg)
+
+    if (data[1] == "yesterday" or data[1] == "today" or data[1] == "tomorrow"):
+        if (data[3] == "complete" or data[3] == "incomplete"):
+            client.sendRequest(data)
 if show:
-    if (show[0] == "yesterday"):
-        pass
-    elif (show[0] == "today"):
-        pass
-    elif (show[0] == "tomorrow"):
-        pass
+    data = []
+    data.append("show")
+
+    for arg in show:
+        data.append(arg)
+
+    if (data[1] == "yesterday" or data[1] == "today" or data[1] == "tomorrow"):
+        client.sendRequest(data)
 if update:
-    if (update[1] == "yesterday"):
-        if (update[3] == "complete"):
-            pass
-        elif (update[3] == "incomplete"):
-            pass
-    elif (update[1] == "today"):
-        if (update[3] == "complete"):
-            pass
-        elif (update[3] == "incomplete"):
-            pass
-    elif (update[1] == "tomorrow"):
-        if (update[3] == "complete"):
-            pass
-        elif (update[3] == "incomplete"):
-            pass
+    data = []
+    data.append("update")
+
+    for arg in update:
+        data.append(arg)
+    
+
+    if (data[2] == "yesterday" or data[2] == "today" or data[2] == "tomorrow"):
+        if (data[4] == "complete" or data[4] == "incomplete"):
+            client.sendRequest(data)
 if remove:
-    print(args.remove)
+    data = []
+    data.append("remove")
+
+    for arg in remove:
+        data.append(arg)
+
+    client.sendRequest(data)
