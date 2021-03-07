@@ -100,7 +100,7 @@ def getNews():
 
     ttk.Label(mainframe, font="helvetiva 40", justify="center", padding=(0,20,0,20), text="News").grid(column=1, columnspan=2, row=0)
     # Values for if there is 6, 7, 8, 9, 10, 11 or 12 lines of news
-    padding_values = [None, None, None, None, None, None, 209, 181, 153, 125, 95, 67, 39]
+    padding_values = [None, None, None, None, None, None, 209, 181, 153, 125, 95, 67, 38]
     line_counter = 0
 
     todays_news = news.get()
