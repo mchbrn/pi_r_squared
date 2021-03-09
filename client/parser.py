@@ -1,5 +1,45 @@
 import argparse
 import client
+import collections
+
+class ValidateAdd(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        valid_dates = ("yesterday", "today", "tomorrow")
+        valid_status = ("incomplete", "complete")
+        date, activity, status = values
+        if date not in valid_dates:
+            raise ValueError("invalid date {s!r}, must be 'yesterday', 'today' or 'tomorrow'".format(s=date))
+        if status not in valid_status:
+            raise ValueError("invalid status {s!r}, must be 'complete' or 'incomplete'".format(s=status))
+        setattr(namespace, self.dest, values)
+
+class ValidateShow(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        valid_dates = ("yesterday", "today", "tomorrow")
+        date = values
+        if date not in valid_dates:
+            raise ValueError("invalid date {s!r}, must be 'yesterday', 'today' or 'tomorrow'".format(s=date))
+        setattr(namespace, self.dest, values)
+
+class ValidateUpdate(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        valid_dates = ("yesterday", "today", "tomorrow")
+        valid_status = ("incomplete", "complete")
+        ID, date, activity, status = values
+        if date not in valid_dates:
+            raise ValueError("invalid date {s!r}, must be 'yesterday', 'today' or 'tomorrow'".format(s=date))
+        if status not in valid_status:
+            raise ValueError("invalid status {s!r}, must be 'complete' or 'incomplete'".format(s=status))
+        ID = int(ID)
+        setattr(namespace, self.dest, values)
+
+class ValidateRemove(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        valid_dates = ("yesterday", "today", "tomorrow")
+        valid_status = ("incomplete", "complete")
+        ID = values
+        ID = int(ID)
+        setattr(namespace, self.dest, values)
 
 parser = argparse.ArgumentParser(description="add, show, update and remove items on your todo list")
 
@@ -8,10 +48,10 @@ group_show = parser.add_mutually_exclusive_group()
 group_update = parser.add_mutually_exclusive_group()
 group_remove = parser.add_mutually_exclusive_group()
 
-group_add.add_argument("-a", "--add", nargs=3, help="add new activity to the database")
-group_show.add_argument("-s", "--show", nargs=1, help="show activities on a given day")
-group_update.add_argument("-u", "--update", nargs=4, help="update an activity, date and/or status")
-group_remove.add_argument("-r", "--remove", nargs=1, help="remove an activity from the database")
+group_add.add_argument("-a", "--add", nargs=3, action=ValidateAdd, help="add new activity to the database", metavar=("DATE", "ACTIVITY", "STATUS"))
+group_show.add_argument("-s", "--show", nargs=1, action=ValidateShow, help="show activities on a given day", metavar=("DATE"))
+group_update.add_argument("-u", "--update", nargs=4, action=ValidateUpdate, help="update an activity, date and/or status", metavar=("ID", "DATE", "ACTIVITY", "STATUS"))
+group_remove.add_argument("-r", "--remove", nargs=1, action=ValidateRemove, help="remove an activity from the database", metavar=("ID"))
 
 args = parser.parse_args()
 
@@ -45,7 +85,6 @@ if update:
 
     for arg in update:
         data.append(arg)
-    
 
     if (data[2] == "yesterday" or data[2] == "today" or data[2] == "tomorrow"):
         if (data[4] == "complete" or data[4] == "incomplete"):
